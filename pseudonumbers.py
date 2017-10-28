@@ -2,10 +2,9 @@
 import random
 import math
 
-from datagenerator import DataGenerator
-from interface import implements
+from common.datagenerator import DataGenerator
 
-class PseudoNumbers(implements(DataGenerator)):
+class PseudoNumbers(DataGenerator):
     def __init__(self,
                  noise=0.01,
                  sizeX=20,foreY=5,
@@ -40,14 +39,14 @@ class PseudoNumbers(implements(DataGenerator)):
         randomsample = random.random() -  0.5
         return self.calmodel + self.counter + randomsample * self.noise
         
-    def gen(self):
-        register = self.model()
-        self.counter += 1
-        return register
+#    def gen(self):
+#        register = self.model()
+#        self.counter += 1
+#        return register
 
-    def reset(self):
-        self.counter = 0
-        self.data = []
+#    def reset(self):
+#        self.counter = 0
+#        self.data = []
     
     def genSerie(self,seriesize):
         serie = []
@@ -59,9 +58,6 @@ class PseudoNumbers(implements(DataGenerator)):
         # Create X,Y arrays
         self.X,self.Y = self.getXYData()
     
-    def getData(self):
-        return self.data
-
     def printParams(self):
         print "Noise:",self.noise
         print "Counter:",self.counter
@@ -69,40 +65,15 @@ class PseudoNumbers(implements(DataGenerator)):
     def getXYData(self):
         xDim = self.sizeX
         yfd  = self.foreY
-
         if xDim < 1 or yfd < 1:
-            return -1
-
-        imax = len(self.data)-xDim-yfd+1
-        
-        #print len(self.data)
+            return False
+        imax = len(self.data)-xDim-yfd+1        
+       #print len(self.data)
         X = [self.data[i:i+xDim] for i in xrange(0,imax)]
         Y = [self.data[i+xDim+yfd-1] for i in range(0,imax)]
-    
         return X,Y
                     
     def writeData(self):
         print "TODO"
 
-    def getTrainData(self):
-        if self.X == []:
-            return -1
-        X = self.X
-        Y = self.Y
         
-        trainsize = int(len(X) * self.train_percent)
-        Xtrain = X[0:trainsize]
-        Ytrain = Y[0:trainsize]
-        return Xtrain,Ytrain        
-        
-    def getTestData(self):
-        if self.X == []:
-            return -1
-        X = self.X
-        Y = self.Y
-
-        trainsize = int(len(X) * self.train_percent)
-        Xtest = X[trainsize:len(X)]
-        Ytest = Y[trainsize:len(X)]
-
-        return Xtest,Ytest
