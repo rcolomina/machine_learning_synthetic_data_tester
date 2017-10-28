@@ -11,9 +11,10 @@ Xtest,Ytest   = mynoise.getTestData()
 
 # Plot synthetic data
 gendata = mynoise.getData()
-plt.plot(gendata)
-plt.ylabel('PseudoNumbers')
-plt.show()
+#plt.plot(gendata)
+#plt.ylabel('PseudoNumbers')
+#plt.show()
 
+print "Test Executed Successfully"
 
 
