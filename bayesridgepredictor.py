@@ -2,9 +2,9 @@
 from sklearn import linear_model
 
 from common.datapredictor import Predictor
-from interface import implements
+#from interface import implements
 
-class BayesRidgePredict(implements(Predictor)):    
+class BayesRidgePredict(Predictor):    
     def __init__(self):
         self.trained = False
         self.model = linear_model.BayesianRidge()
@@ -14,15 +14,12 @@ class BayesRidgePredict(implements(Predictor)):
         if not self.trained:
             print "Model not trained"
             return False
-        return self.model.predict(sample)
+        try:
+            ret_model = self.model.predict(sample)
+            return ret_model
+        except ValueError:
+            print "Model could not predict ",ValueError
     
-    def train(self,Xtrain,Ytrain):
-        # fit the model with training data
-        self.model.fit(Xtrain,Ytrain)
-        self.samplestrained = len(Xtrain)
-        self.trained = True
-        print "Model trained"
-        return True
         
     # Get score on test data
     def score(self,Xtest,Ytest):
