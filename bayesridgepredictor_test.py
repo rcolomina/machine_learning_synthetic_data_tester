@@ -2,6 +2,7 @@
 #from gensinnoise   import SinNoise
 from pseudonumbers import PseudoNumbers
 from bayesridgepredictor import BayesRidgePredict
+
 import time
 import sys
 import numpy as np
@@ -14,22 +15,19 @@ premodel = 0
 
 # Generate Data Model 
 if genmodel ==0:
-    mynoise = SinNoise(amp=100.0,
-                       freq=20.0,
-                       noise=0.1,
-                       foreY=20)
+    mydatagen = SinNoise(amp=100.0,freq=20.0,
+                       noise=0.1,foreY=20)
 else:
     if genmodel == 1:
-        mynoise = PseudoNumbers()
+        mydatagen = PseudoNumbers()
     else:
         print "Erro: Model not considered"
         sys.exit()
     
 # Generate Syinthetic Data
-mynoise.genSerie(50000)
-Xtrain,Ytrain = mynoise.getTrainData()
-Xtest,Ytest   = mynoise.getTestData()
-
+mydatagen.genSerie(50000)
+Xtrain,Ytrain = mydatagen.getTrainData()
+Xtest,Ytest   = mydatagen.getTestData()
 
 # Create the model predictor
 if premodel == 0:
@@ -56,9 +54,10 @@ if online:
         Xup = Xtrain[0:counter]
         Yup = Ytrain[0:counter]
         myBRP.train(Xup,Yup)
-
+        
+        
         ErrorPrediction = myBRP.predict(Xtrain[counter]) - Ytrain[counter]
-        #    print "Counter",mynoise.counter,"Prediction:",myBRP.predict(Xtrain[counter+1])," Actual:",Ytrain[counter+1]#," Score:",myBRP.score(Xup,Yup)
+        #    print "Counter",mydatagen.counter,"Prediction:",myBRP.predict(Xtrain[counter+1])," Actual:",Ytrain[counter+1]#," Score:",myBRP.score(Xup,Yup)
         print "Error Prediction:",ErrorPrediction #," Score:",myBRP.score(Xtest,Ytest) 
         counter +=1
         #print "Current Score:",myBRP.score(Xtest,Ytest)
@@ -92,5 +91,9 @@ if batch:
     plt.plot(errors[0:1000])
     plt.ylabel('Errors')
     plt.show()
-
     
+
+
+
+
+
