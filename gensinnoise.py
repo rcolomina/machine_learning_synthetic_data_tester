@@ -2,28 +2,26 @@
 import random
 import math
 
-from datagenerator import DataGenerator
+from common.datagenerator import DataGenerator
 from interface import implements
 
-class SinNoise(implements(DataGenerator)):
+class SinNoise(DataGenerator):
     def __init__(self,amp,freq,trans=0.0,noise=0.0,
                  sizeX=20,foreY=5,train_percent=0.7,
                  seriesize=1000):
         
-        self.data = []
+        # Variables to store the model
         self.amp    = amp
         self.freq   = freq
         self.trans  = trans
-        self.noise  = noise
+        self.noise  = noise        
         self.counter= 0
         self.deltaTime = 0.01
+        
         # sizeX and foreY must be integers
         self.sizeX  = sizeX
         self.foreY  = foreY
         self.train_percent = train_percent
-        
-        self.X = []
-        self.Y = []
         
     # Data origin on each iteration using counter
     def model(self):
