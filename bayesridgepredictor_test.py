@@ -15,8 +15,7 @@ premodel = 0
 
 # Generate Data Model 
 if genmodel ==0:
-    mydatagen = SinNoise(amp=100.0,freq=20.0,
-                       noise=0.1,foreY=20)
+    mydatagen = SinNoise(amp=100.0,freq=20.0,noise=0.1,foreY=20)
 else:
     if genmodel == 1:
         mydatagen = PseudoNumbers()
@@ -63,7 +62,6 @@ if online:
         #print "Current Score:",myBRP.score(Xtest,Ytest)
         time.sleep(0.1)
 
-
 # BACTH LEARNING
 if batch:
     myBRP.train(Xtrain,Ytrain)        
@@ -88,9 +86,9 @@ if batch:
     #plt.show()
 
     #print errors[0:100]
-    plt.plot(errors[0:1000])
-    plt.ylabel('Errors')
-    plt.show()
+#    plt.plot(errors[0:1000])
+#    plt.ylabel('Errors')
+#    plt.show()
     
 
 
