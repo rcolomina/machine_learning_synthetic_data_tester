@@ -11,7 +11,6 @@ class PseudoNumbers(DataGenerator):
                  train_percent=0.7,
                  seriesize=10000):
 
-        self.data = []
         self.noise  = noise
         self.counter= 0
         self.deltaTime = 0.01
@@ -20,14 +19,12 @@ class PseudoNumbers(DataGenerator):
         self.foreY  = foreY
         self.train_percent = train_percent
         
-        self.X = []
-        self.Y = []
-
         self.event0 = 100
         self.event1 = 200
         self.event2 = 300
         self.calmodel = 0
-        
+
+    # Return what the model has defined
     def model(self):
         # Use counter to get the following data        
         if self.counter % 50: 
